@@ -10,7 +10,7 @@ export function RoleModuleLists({ roleid }) {
 
    const fetchAssignModules = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_NODEJS_URL}/role-modules/${roleid}`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_NODEJS_URL}/v1/role-modules/${roleid}`);
         if (res.ok) {
           const data = await res.json();
           setModules(data); // API returns array of modules
@@ -41,7 +41,7 @@ export function RoleModuleLists({ roleid }) {
       const newStatus = currentStatus === 1 ? 0 : 1;
       
 
-      const res =await fetch(`${process.env.NEXT_PUBLIC_NODEJS_URL}/role-modules/update-role-module`,{
+      const res =await fetch(`${process.env.NEXT_PUBLIC_NODEJS_URL}/v1/role-modules/update-role-module`,{
         method : "PUT",
         headers:{
           "content-type" : "application/json"

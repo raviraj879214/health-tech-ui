@@ -31,7 +31,7 @@ export function RolesList({trigger , sendData ,sendDelete }) {
   const fetchRoles = async (page) => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_NODEJS_URL}/roles?page=${page}&limit=${itemsPerPage}`
+        `${process.env.NEXT_PUBLIC_NODEJS_URL}/v1/roles?page=${page}&limit=${itemsPerPage}`
       );
       const data = await res.json();
 
@@ -80,7 +80,7 @@ const onDelete = async (id) => {
   if (!confirmDelete) return; // Exit if user cancels
 
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_NODEJS_URL}/roles/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_NODEJS_URL}/v1/roles/${id}`, {
       method: "DELETE",
     });
 

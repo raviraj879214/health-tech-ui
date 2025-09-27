@@ -16,7 +16,7 @@ export function ManageRole() {
 
   const onsubmit =async (data) => {
       setrolebutton(true);
-      const res = await fetch(`${process.env.NEXT_PUBLIC_NODEJS_URL}/roles`,{
+      const res = await fetch(`${process.env.NEXT_PUBLIC_NODEJS_URL}/v1/roles`,{
         method : "POST",
         headers:{
           "content-type" : "application/json"
@@ -47,7 +47,7 @@ export function ManageRole() {
 
   const onUpdate=async (data)=>{
     setrolebutton(true);
-    const res = await fetch(`${process.env.NEXT_PUBLIC_NODEJS_URL}/roles/${roleid}`,{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_NODEJS_URL}/v1/roles/${roleid}`,{
         method : "PUT",
         headers:{
           "content-type" : "application/json"

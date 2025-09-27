@@ -13,6 +13,7 @@ export function AuthAdmin({ children }) {
     const checkAuth = async () => {
       try {
         debugger;
+        
         const res = await fetch(`/api/auth/get-token`, {
           cache: "no-store", // ensure fresh cookie every time
         });

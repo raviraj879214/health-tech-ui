@@ -16,6 +16,7 @@ import {
   PlugInIcon,
   TableIcon,
   UserCircleIcon,
+  EnvelopeIcon
 } from "../icons/index";
 
 
@@ -28,17 +29,8 @@ type NavItem = {
 
 
 
-const navItems: NavItem[] = [
- {
-    icon: <GridIcon />,
-    name: "Roles Management",
-    subItems: [
-      { name: "Roles", path: "/admin/manage-roles", pro: false },
-       { name: "Assign Modules", path: "/admin/assign-modules", pro: false },
-        { name: "Test Modules", path: "/admin/test", pro: false },
-    ],
-  },
-];
+
+
 
 
 
@@ -116,8 +108,68 @@ const othersItems: NavItem[] = [
 ];
 
 const AppSidebar: React.FC = () => {
+
+
   const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
   const pathname = usePathname();
+
+  const [roelaccess,setroleaccess] = useState("");
+
+
+
+  
+const navItems: NavItem[] = [
+  
+  ...(roelaccess === "SuperAdmin"
+    ? [
+        {
+          icon: <GridIcon />,
+          name: "Roles Management",
+          subItems: [
+            { name: "Roles", path: "/admin/manage-roles", pro: false },
+            { name: "Assign Modules", path: "/admin/assign-modules", pro: false },
+            { name: "Manage User", path: "/admin/manage-user", pro: false },
+            { name: "Test Modules", path: "/admin/test", pro: false },
+          ],
+        },
+      ]
+    : []),
+
+    {
+        icon: <CalenderIcon />,
+        name: "Manage Activities",
+        path: "/admin/manage-activity",
+    },
+
+    {
+        icon: <EnvelopeIcon />,
+        name: "Manage Email Templates",
+        path: "/admin/manage-email-templates",
+    },
+    
+
+];
+
+  useEffect(()=>{
+    
+
+    getroleaccess();
+          
+  },[]);
+
+
+    const getroleaccess=async ()=>{
+    const res = await fetch(`/api/auth/get-admin-role`, {
+              cache: "no-store", // ensure fresh cookie every time
+            });
+
+            if (!res.ok) throw new Error("Failed to fetch token");
+
+            const data = await res.json();
+            setroleaccess(data.adminrole)
+            console.log("App sidebar",data);
+    }
+
 
   const renderMenuItems = (
     navItems: NavItem[],

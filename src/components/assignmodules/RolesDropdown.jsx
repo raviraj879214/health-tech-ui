@@ -13,16 +13,16 @@ export function RoleDropdown({sendRoleID}) {
   // Fetch roles from API
   const fetchRoles = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_NODEJS_URL}/roles`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_NODEJS_URL}/v1/roles`);
       if (res.ok) {
         const data = await res.json();
         // Make sure to check if roles exist
         setRoles(data.roles || []);
       } else {
-        console.error("Failed to fetch roles");
+        console.log("Failed to fetch roles");
       }
     } catch (err) {
-      console.error("Error fetching roles:", err);
+      console.log("Error fetching roles:", err);
     }
   };
 
