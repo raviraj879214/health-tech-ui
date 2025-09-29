@@ -1,19 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 export function AuthAdmin({ children }) {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        debugger;
-        
         const res = await fetch(`/api/auth/get-token`, {
           cache: "no-store", // ensure fresh cookie every time
         });
@@ -22,22 +19,24 @@ export function AuthAdmin({ children }) {
 
         const data = await res.json();
 
+        // Get query params manually from window.location
+        const searchParams = typeof window !== "undefined" ? window.location.search : "";
+        
         if (!data.token) {
-          const currentUrl =
-            pathname + (searchParams.toString() ? `?${searchParams}` : "");
-            router.push(`/signin?returl=${encodeURIComponent(currentUrl)}`);
+          const currentUrl = pathname + searchParams;
+          router.push(`/signin?returl=${encodeURIComponent(currentUrl)}`);
         } else {
           setLoading(false);
         }
       } catch (err) {
-        const currentUrl =
-          pathname + (searchParams.toString() ? `?${searchParams}` : "");
+        const searchParams = typeof window !== "undefined" ? window.location.search : "";
+        const currentUrl = pathname + searchParams;
         router.push(`/signin?returl=${encodeURIComponent(currentUrl)}`);
       }
     };
 
     checkAuth();
-  }, [router, pathname, searchParams]);
+  }, [router, pathname]);
 
   if (loading)
     return <p className="p-6 text-center">Checking authentication...</p>;

@@ -13,15 +13,17 @@ const outfit = Outfit({
 });
 
 export default function AdminLayout({ children }) {
-  return (
-    // <AuthAdmin>
-      <ThemeProvider>
+  return (<>
+
+<ThemeProvider>
+     <AuthAdmin>
         <SidebarProvider>
           <InnerLayout>{children}</InnerLayout>
         </SidebarProvider>
-      </ThemeProvider>
-    // </AuthAdmin>
-  );
+     </AuthAdmin>
+</ThemeProvider>
+
+ </>);
 }
 
 // Separate inner component that can safely use useSidebar
