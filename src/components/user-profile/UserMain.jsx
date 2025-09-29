@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import UserAddressCard from "./UserAddressCard";
 import UserInfoCard from "./UserInfoCard";
 import UserMetaCard from "./UserMetaCard";
-import {AdminPassword} from "../user-profile/AdminPasswordChange";
+import {AdminPassword} from "./AdminPasswordChange";
 
 
 

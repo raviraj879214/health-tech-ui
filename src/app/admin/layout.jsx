@@ -6,28 +6,26 @@ import AppSidebar from "@/layout/AppSidebar";
 import Backdrop from "@/layout/Backdrop";
 import React from "react";
 import { ThemeProvider } from '@/context/ThemeContext';
-import {AuthAdmin} from "../../components/middleware/AuthAdmin";
+import { AuthAdmin } from "../../components/middleware/AuthAdmin";
 
 const outfit = Outfit({
   subsets: ["latin"],
 });
 
-
-
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default function AdminLayout({ children }) {
   return (
-    <AuthAdmin>
-    <ThemeProvider>
-      <SidebarProvider>
-        <InnerLayout>{children}</InnerLayout>
-      </SidebarProvider>
-    </ThemeProvider>
-    </AuthAdmin>
+    // <AuthAdmin>
+      <ThemeProvider>
+        <SidebarProvider>
+          <InnerLayout>{children}</InnerLayout>
+        </SidebarProvider>
+      </ThemeProvider>
+    // </AuthAdmin>
   );
 }
 
 // Separate inner component that can safely use useSidebar
-function InnerLayout({ children }: { children: React.ReactNode }) {
+function InnerLayout({ children }) {
   const { isExpanded, isHovered, isMobileOpen } = useSidebar();
 
   const mainContentMargin = isMobileOpen
@@ -37,7 +35,7 @@ function InnerLayout({ children }: { children: React.ReactNode }) {
     : "lg:ml-[90px]";
 
   return (
-    <div  className={`${outfit.className} dark:bg-gray-900 min-h-screen xl:flex`}>
+    <div className={`${outfit.className} dark:bg-gray-900 min-h-screen xl:flex`}>
       <AppSidebar />
       <Backdrop />
 

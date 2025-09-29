@@ -1,3 +1,4 @@
+"use client"
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import {TestCo} from "../../../components/TestComponent/TestCompo";
 

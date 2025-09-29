@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/(full-width-pages)/(auth)/signin/page.jsx", "src/components/auth/SignInForm.jsx", "src/components/user-profile/UserMetaCard.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/(full-width-pages)/(auth)/signin/page.jsx", "src/components/auth/SignInForm.jsx", "src/components/user-profile/UserMetaCard.tsx", "src/components/user-profile/UserMain.jsx", "src/components/middleware/AuthAdmin.jsx", "src/app/admin/layout.jsx", "src/app/admin/(others-pages)/profile/page.jsx"],
   "exclude": ["node_modules"]
 }

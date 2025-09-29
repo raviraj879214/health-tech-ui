@@ -1,3 +1,4 @@
+"use client"
 import {ManageActivity} from "../../../components/manageactivity/ManageActivies";
 
 
