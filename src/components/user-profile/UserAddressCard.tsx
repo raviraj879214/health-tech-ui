@@ -35,7 +35,8 @@ interface UpdateData {
 export default function UserAddressCard({ user , sendUpdatedata }: UserMetaCardProps) {
   const { isOpen, openModal, closeModal } = useModal();
 
-  const {register,formState:{errors},handleSubmit} = useForm();
+ const { register, formState: { errors }, handleSubmit } = useForm<UpdateData>();
+
 
 
 
@@ -129,7 +130,7 @@ export default function UserAddressCard({ user , sendUpdatedata }: UserMetaCardP
               Update your details to keep your profile up-to-date.
             </p>
           </div>
-          <form className="flex flex-col" onSubmit={handleSubmit(onUpdate())}>
+          <form className="flex flex-col" onSubmit={handleSubmit(onUpdate)}>
             <div className="px-2 overflow-y-auto custom-scrollbar">
               <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
                 <div>
