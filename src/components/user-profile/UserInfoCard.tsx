@@ -3,16 +3,66 @@ import React from "react";
 import { useModal } from "../../hooks/useModal";
 import { Modal } from "../ui/modal";
 import Button from "../ui/button/Button";
-import Input from "../form/input/InputField";
 import Label from "../form/Label";
+import { useForm } from "react-hook-form";
 
-export default function UserInfoCard() {
-  const { isOpen, openModal, closeModal } = useModal();
-  const handleSave = () => {
-    // Handle save logic here
-    console.log("Saving changes...");
-    closeModal();
+interface UserMetaCardProps {
+  user: {
+    firstname: number;
+    lastname: string;
+    email: string;
+    Bio: string;
+    address : string;
+    country : string;
+    phone : string;
+    postalcode : string;
+    state : string;
   };
+  sendUpdatedata: (data: Record<string, string | undefined>) => void;
+}
+
+
+interface UpdateData {
+  firstname: string;
+  lastname: string;
+  Bio: string;
+  address: string;
+  country: string;
+  phone: string;
+  postalcode: string;
+  state: string;
+}
+
+
+
+
+export default function UserInfoCard({ user ,sendUpdatedata }: UserMetaCardProps) {
+
+  const { isOpen, openModal, closeModal } = useModal();
+
+  const {register,formState:{errors},handleSubmit} = useForm();
+
+
+
+
+  const onUpdate = (data: UpdateData) => {
+  
+      const labeledData = 
+      {
+          "firstname": data.firstname,
+          "lastname": data.lastname,
+          "Bio": data.Bio,
+          "address": data.address,
+          "country": data.country,
+          "phone": data.phone,
+          "postalcode": data.postalcode,
+          "state": data.state
+      };
+      sendUpdatedata(labeledData);
+      closeModal();
+  }
+
+
   return (
     <div className="p-5 border border-gray-200 rounded-2xl dark:border-gray-800 lg:p-6">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
@@ -27,7 +77,7 @@ export default function UserInfoCard() {
                 First Name
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                Musharof
+                {user.firstname}
               </p>
             </div>
 
@@ -36,7 +86,7 @@ export default function UserInfoCard() {
                 Last Name
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                Chowdhury
+                {user.lastname}
               </p>
             </div>
 
@@ -45,7 +95,7 @@ export default function UserInfoCard() {
                 Email address
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                randomuser@pimjo.com
+                {user.email}
               </p>
             </div>
 
@@ -54,7 +104,7 @@ export default function UserInfoCard() {
                 Phone
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                +09 363 398 46
+                {user.phone}
               </p>
             </div>
 
@@ -63,7 +113,7 @@ export default function UserInfoCard() {
                 Bio
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                Team Manager
+                {user.Bio}
               </p>
             </div>
           </div>
@@ -102,9 +152,9 @@ export default function UserInfoCard() {
               Update your details to keep your profile up-to-date.
             </p>
           </div>
-          <form className="flex flex-col">
-            <div className="custom-scrollbar h-[450px] overflow-y-auto px-2 pb-3">
-              <div>
+          <form className="flex flex-col" onSubmit={handleSubmit(onUpdate)}>
+            <div className="custom-scrollbar  overflow-y-auto px-2 pb-3">
+              {/* <div>
                 <h5 className="mb-5 text-lg font-medium text-gray-800 dark:text-white/90 lg:mb-6">
                   Social Links
                 </h5>
@@ -139,45 +189,70 @@ export default function UserInfoCard() {
                     />
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div className="mt-7">
                 <h5 className="mb-5 text-lg font-medium text-gray-800 dark:text-white/90 lg:mb-6">
                   Personal Information
                 </h5>
 
-                <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
+               
+                
+                   <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
                   <div className="col-span-2 lg:col-span-1">
                     <Label>First Name</Label>
-                    <Input type="text" defaultValue="Musharof" />
+                    <input type="text" defaultValue={user.firstname}
+                      className="h-11 w-full rounded-lg border appearance-none px-4 py-2.5 text-sm shadow-theme-xs placeholder:text-gray-400 focus:outline-hidden focus:ring-3 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
+                      {...register("firstname",{required : "Please enter firstname"})}
+                    />
+                    {errors.firstname &&(<p className="text-red-500 text-sm">{errors.firstname.message}</p>)}
+
                   </div>
 
                   <div className="col-span-2 lg:col-span-1">
                     <Label>Last Name</Label>
-                    <Input type="text" defaultValue="Chowdhury" />
+                    <input type="text" defaultValue={user.lastname}
+                      className="h-11 w-full rounded-lg border appearance-none px-4 py-2.5 text-sm shadow-theme-xs placeholder:text-gray-400 focus:outline-hidden focus:ring-3 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
+                      {...register("lastname",{required : "Please enter lastname"})}
+                    />
+                    {errors.lastname &&(<p className="text-red-500 text-sm">{errors.lastname.message}</p>)}
                   </div>
 
                   <div className="col-span-2 lg:col-span-1">
                     <Label>Email Address</Label>
-                    <Input type="text" defaultValue="randomuser@pimjo.com" />
+                     <input type="text" defaultValue={user.email}
+                     disabled={true}
+                      className="h-11 w-full rounded-lg border appearance-none px-4 py-2.5 text-sm shadow-theme-xs placeholder:text-gray-400 focus:outline-hidden focus:ring-3 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800 text-gray-500 border-gray-300 cursor-not-allowed dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700"
+                      {...register("email",{required : "Please enter email"})}
+                    />
+                    {errors.email &&(<p className="text-red-500 text-sm">{errors.email.message}</p>)}
                   </div>
 
                   <div className="col-span-2 lg:col-span-1">
                     <Label>Phone</Label>
-                    <Input type="text" defaultValue="+09 363 398 46" />
+                    <input type="text" defaultValue={user.phone}
+                      className="h-11 w-full rounded-lg border appearance-none px-4 py-2.5 text-sm shadow-theme-xs placeholder:text-gray-400 focus:outline-hidden focus:ring-3 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
+                      {...register("phone",{required : "Please enter phone"})}
+                    />
+                    {errors.phone &&(<p className="text-red-500 text-sm">{errors.phone.message}</p>)}
                   </div>
 
                   <div className="col-span-2">
                     <Label>Bio</Label>
-                    <Input type="text" defaultValue="Team Manager" />
+                    <input type="text" defaultValue={user.Bio}
+                      className="h-11 w-full rounded-lg border appearance-none px-4 py-2.5 text-sm shadow-theme-xs placeholder:text-gray-400 focus:outline-hidden focus:ring-3 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
+                      {...register("Bio",{required : "Please enter Bio"})}
+                    />
+                    {errors.Bio &&(<p className="text-red-500 text-sm">{errors.Bio.message}</p>)}
                   </div>
                 </div>
+                
               </div>
             </div>
             <div className="flex items-center gap-3 px-2 mt-6 lg:justify-end">
               <Button size="sm" variant="outline" onClick={closeModal}>
                 Close
               </Button>
-              <Button size="sm" onClick={handleSave}>
+              <Button size="sm">
                 Save Changes
               </Button>
             </div>

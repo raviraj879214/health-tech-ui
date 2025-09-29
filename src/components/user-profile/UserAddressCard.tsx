@@ -3,16 +3,58 @@ import React from "react";
 import { useModal } from "../../hooks/useModal";
 import { Modal } from "../ui/modal";
 import Button from "../ui/button/Button";
-import Input from "../form/input/InputField";
 import Label from "../form/Label";
+import { useForm } from "react-hook-form";
 
-export default function UserAddressCard() {
-  const { isOpen, openModal, closeModal } = useModal();
-  const handleSave = () => {
-    // Handle save logic here
-    console.log("Saving changes...");
-    closeModal();
+
+
+interface UserMetaCardProps {
+  user: {
+    firstname: number;
+    lastname: string;
+    email: string;
+    Bio: string;
+    address : string;
+    country : string;
+    phone : string;
+    postalcode : string;
+    state : string;
   };
+  sendUpdatedata: (data: Record<string, string | undefined>) => void;
+}
+
+
+interface UpdateData {
+  address: string;
+  country: string;
+  phone: string;
+  postalcode: string;
+  state: string;
+}
+
+export default function UserAddressCard({ user , sendUpdatedata }: UserMetaCardProps) {
+  const { isOpen, openModal, closeModal } = useModal();
+
+  const {register,formState:{errors},handleSubmit} = useForm();
+
+
+
+
+    const onUpdate = (data: UpdateData) => {
+  
+      const labeledData = 
+      {
+          "address": data.address,
+          "country": data.country,
+          "phone": data.phone,
+          "postalcode": data.postalcode,
+          "state": data.state
+      };
+      sendUpdatedata(labeledData);
+      closeModal();
+  }
+
+
   return (
     <>
       <div className="p-5 border border-gray-200 rounded-2xl dark:border-gray-800 lg:p-6">
@@ -28,7 +70,7 @@ export default function UserAddressCard() {
                   Country
                 </p>
                 <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                  United States
+                  {user.country}
                 </p>
               </div>
 
@@ -37,7 +79,7 @@ export default function UserAddressCard() {
                   City/State
                 </p>
                 <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                  Phoenix, Arizona, United States.
+                  {user.state}
                 </p>
               </div>
 
@@ -46,18 +88,11 @@ export default function UserAddressCard() {
                   Postal Code
                 </p>
                 <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                  ERT 2489
+                  {user.postalcode}
                 </p>
               </div>
 
-              <div>
-                <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-                  TAX ID
-                </p>
-                <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                  AS4568384
-                </p>
-              </div>
+             
             </div>
           </div>
 
@@ -94,35 +129,41 @@ export default function UserAddressCard() {
               Update your details to keep your profile up-to-date.
             </p>
           </div>
-          <form className="flex flex-col">
+          <form className="flex flex-col" onSubmit={handleSubmit(onUpdate())}>
             <div className="px-2 overflow-y-auto custom-scrollbar">
               <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
                 <div>
                   <Label>Country</Label>
-                  <Input type="text" defaultValue="United States" />
+                  <input type="text" defaultValue={user.country}
+                      className="h-11 w-full rounded-lg border appearance-none px-4 py-2.5 text-sm shadow-theme-xs placeholder:text-gray-400 focus:outline-hidden focus:ring-3 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
+                      {...register("country",{required : "Please enter country"})}
+                    />
+                    {errors.country &&(<p className="text-red-500 text-sm">{errors.country.message}</p>)}
                 </div>
 
                 <div>
                   <Label>City/State</Label>
-                  <Input type="text" defaultValue="Arizona, United States." />
+                  <input type="text" defaultValue={user.state}
+                      className="h-11 w-full rounded-lg border appearance-none px-4 py-2.5 text-sm shadow-theme-xs placeholder:text-gray-400 focus:outline-hidden focus:ring-3 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
+                      {...register("state",{required : "Please enter state"})}
+                    />
+                    {errors.state &&(<p className="text-red-500 text-sm">{errors.state.message}</p>)}
                 </div>
 
                 <div>
                   <Label>Postal Code</Label>
-                  <Input type="text" defaultValue="ERT 2489" />
+                  <input type="text" defaultValue={user.postalcode}
+                      className="h-11 w-full rounded-lg border appearance-none px-4 py-2.5 text-sm shadow-theme-xs placeholder:text-gray-400 focus:outline-hidden focus:ring-3 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
+                      {...register("postalcode",{required : "Please enter postalcode"})}
+                    />
+                    {errors.postalcode &&(<p className="text-red-500 text-sm">{errors.postalcode.message}</p>)}
                 </div>
 
-                <div>
-                  <Label>TAX ID</Label>
-                  <Input type="text" defaultValue="AS4568384" />
-                </div>
               </div>
             </div>
             <div className="flex items-center gap-3 px-2 mt-6 lg:justify-end">
-              <Button size="sm" variant="outline" onClick={closeModal}>
-                Close
-              </Button>
-              <Button size="sm" onClick={handleSave}>
+             
+              <Button size="sm">
                 Save Changes
               </Button>
             </div>
