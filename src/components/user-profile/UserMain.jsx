@@ -4,6 +4,7 @@ import UserAddressCard from "./UserAddressCard";
 import UserInfoCard from "./UserInfoCard";
 import UserMetaCard from "./UserMetaCard";
 import {AdminPassword} from "./AdminPasswordChange";
+import ComponentCard from "../common/ComponentCard";
 
 
 
@@ -76,11 +77,20 @@ export function UserMainArea(){
 
 
     return(<>
-            <UserMetaCard user={userdetails}   />
-            <UserInfoCard  user={userdetails} sendUpdatedata={childFormUpdate} />
-            <UserAddressCard  user={userdetails} sendUpdatedata={childFormUpdate} />
+        <div className="grid grid-cols-12 gap-4">
+            <div className="col-span-12 sm:col-span-12 space-y-5 sm:space-y-6">
+                <ComponentCard title="">
 
-            <AdminPassword></AdminPassword>
+                    <UserMetaCard user={userdetails} />
+                    <UserInfoCard user={userdetails} sendUpdatedata={childFormUpdate} />
+                    <UserAddressCard user={userdetails} sendUpdatedata={childFormUpdate} />
+                    <AdminPassword></AdminPassword>
+
+
+
+                </ComponentCard>
+            </div>
+        </div>
 
 
 
