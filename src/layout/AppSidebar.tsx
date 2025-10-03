@@ -142,6 +142,11 @@ const navItems: NavItem[] = [
         name: "Manage Email Templates",
         path: "/admin/manage-email-templates",
     },
+     {
+        icon: <EnvelopeIcon />,
+        name: "Admin Activities",
+        path: "/admin/admin-activities",
+    },
     
 
 ];
