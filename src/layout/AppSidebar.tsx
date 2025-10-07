@@ -131,11 +131,7 @@ const navItems: NavItem[] = [
       ]
     : []),
 
-    {
-        icon: <CalenderIcon />,
-        name: "Manage Activities",
-        path: "/admin/manage-activity",
-    },
+  
 
     {
         icon: <EnvelopeIcon />,
@@ -146,6 +142,11 @@ const navItems: NavItem[] = [
         icon: <EnvelopeIcon />,
         name: "Admin Activities",
         path: "/admin/admin-activities",
+    },
+     {
+        icon: <EnvelopeIcon />,
+        name: "Manage Blogs",
+        path: "/admin/blogs",
     },
     
 
