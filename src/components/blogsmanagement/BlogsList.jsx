@@ -22,6 +22,19 @@ export function ListOfBlogs({ trigger , sendData }) {
   const [totalPages, setTotalPages] = useState(1);
   const itemsPerPage = 10;
   const [message, setMessage] = useState("");
+  const [expandedRows, setExpandedRows] = useState({});
+
+
+
+  const toggleExpand = (id) => {
+    setExpandedRows((prev) => ({
+      ...prev,
+      [id]: !prev[id], // toggle only the clicked one
+    }));
+  };
+
+
+
 
   // Fetch users
   const fetchUsers = async (page) => {
@@ -187,9 +200,29 @@ export function ListOfBlogs({ trigger , sendData }) {
                         : "—"}
                     </span>
                   </TableCell>
-                  <TableCell className="px-5 py-4 sm:px-6 text-start">
-                    {user.content}
-                  </TableCell>
+                         <TableCell className="px-5 py-4 sm:px-6 text-start align-top">
+            <div
+              className={`transition-all duration-300 ${
+                expandedRows[user.id] ? "max-h-none" : "max-h-24 overflow-hidden"
+              }`}
+            >
+              <p
+                className={`${
+                  expandedRows[user.id] ? "" : "line-clamp-3"
+                } text-gray-800`}
+              >
+                {user.content}
+              </p>
+            </div>
+
+            {/* Toggle button */}
+            <button
+              onClick={() => toggleExpand(user.id)}
+              className="text-blue-500 text-sm hover:underline mt-1"
+            >
+              {expandedRows[user.id] ? "Show less" : "...read more"}
+            </button>
+          </TableCell>
                   <TableCell className="px-5 py-4 sm:px-6 text-start">
                     
                     <img  src={`${process.env.NEXT_PUBLIC_NODEJS_URL}/v1/uploads/blogs/${user.image_url}`}  alt="Profer Logo" style={{ height: "50px" }} />

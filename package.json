@@ -3,9 +3,11 @@
   "version": "2.0.2",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev:local": "next dev",
+    "build:staging": "dotenv -e .env.staging next build",
+    "start:staging": "dotenv -e .env.staging next start",
+    "build:prod": "cross-env NEXT_PUBLIC_ENV=production next build",
+    "start:prod": "cross-env NEXT_PUBLIC_ENV=production next start",
     "lint": "next lint"
   },
   "dependencies": {
@@ -44,6 +46,8 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/react-transition-group": "^4.4.12",
+    "cross-env": "^10.1.0",
+    "dotenv-cli": "^10.0.0",
     "eslint": "^9",
     "eslint-config-next": "15.1.3",
     "postcss": "^8",

@@ -8,5 +8,8 @@ export const metadata: Metadata = {
 };
 
 export default function SignUp() {
+
   return <SignUpForm />;
+
+  
 }

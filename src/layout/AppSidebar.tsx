@@ -148,6 +148,12 @@ const navItems: NavItem[] = [
         name: "Manage Blogs",
         path: "/admin/blogs",
     },
+     {
+        icon: <EnvelopeIcon />,
+        name: "Manage Seo",
+        path: "/admin/manage-seo-content",
+    },
+
     
 
 ];
