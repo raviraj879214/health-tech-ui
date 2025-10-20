@@ -11,6 +11,7 @@ export function DropDownSearchesSeo({ value = null, onChange }) {
   // Fetch tags from API
   const fetchTags = async () => {
     try {
+      
       const resToken = await fetch("/api/auth/get-token");
       const { token } = await resToken.json();
 

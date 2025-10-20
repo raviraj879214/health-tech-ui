@@ -1,12 +1,10 @@
 "use client"
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
-import {TestCo} from "../../../components/TestComponent/TestCompo";
+import NotificationsComponent from "../../../components/Notification/Notifications";
 
 
 
 export default function Page() {
-
-
 
 
 
@@ -17,8 +15,7 @@ export default function Page() {
         <div className="space-y-6">
             <PageBreadcrumb pageTitle="Manage Test" />
 
-
-            <TestCo></TestCo>
+            {/* <NotificationsComponent></NotificationsComponent> */}
         </div>
     </>);
 }
