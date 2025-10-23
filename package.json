@@ -3,7 +3,7 @@
   "version": "2.0.2",
   "private": true,
   "scripts": {
-    "dev:local": "cross-env NODE_ENV=development PORT=3000 next dev",
+    "start:local": "cross-env NODE_ENV=development PORT=3000 next dev",
     "start:staging": "dotenv -e .env.staging -- cross-env NODE_ENV=staging PORT=3001 next build && dotenv -e .env.staging -- cross-env NODE_ENV=staging PORT=3001 next start",
     "start:prod": "dotenv -e .env.production -- cross-env NODE_ENV=production PORT=3000 next build && dotenv -e .env.production -- cross-env NODE_ENV=production PORT=3000 next start",
     "lint": "next lint"
@@ -34,6 +34,7 @@
     "react-dom": "^19.0.0",
     "react-dropzone": "^14.3.5",
     "react-hook-form": "^7.63.0",
+    "react-toastify": "^11.0.5",
     "socket.io-client": "^4.8.1",
     "swiper": "^11.2.0",
     "tailwind-merge": "^2.6.0"

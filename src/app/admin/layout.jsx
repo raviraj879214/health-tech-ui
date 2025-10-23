@@ -13,6 +13,8 @@ const outfit = Outfit({
 });
 
 export default function AdminLayout({ children }) {
+
+
   return (<>
 
 <ThemeProvider>
@@ -28,6 +30,7 @@ export default function AdminLayout({ children }) {
 
 // Separate inner component that can safely use useSidebar
 function InnerLayout({ children }) {
+  
   const { isExpanded, isHovered, isMobileOpen } = useSidebar();
 
   const mainContentMargin = isMobileOpen
@@ -46,6 +49,9 @@ function InnerLayout({ children }) {
 
         <div className="p-4 mx-auto max-w-(--breakpoint-2xl) md:p-6">
           {children}
+          
+       
+
         </div>
       </div>
     </div>

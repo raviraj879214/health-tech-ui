@@ -66,6 +66,8 @@ export default function SignInForm({ returl }) {
            await fetch("/api/auth/set-firstname", {method: "POST",headers: { "Content-Type": "application/json" },body: JSON.stringify({ firstname: result.user.firstname })});
            await fetch("/api/auth/set-lastname", {method: "POST",headers: { "Content-Type": "application/json" },body: JSON.stringify({ lastname: result.user.lastname })});
            await fetch("/api/auth/set-admin-role", {method: "POST",headers: { "Content-Type": "application/json" },body: JSON.stringify({ adminrole: result.user.role.name })});
+           await fetch("/api/auth/set-userid", {method: "POST",headers: { "Content-Type": "application/json" },body: JSON.stringify({ userid: result.user.id })});
+           
 
 
            await getToken();

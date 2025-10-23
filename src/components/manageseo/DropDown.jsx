@@ -1,7 +1,10 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 
-export function DropDownSearchesSeo({ value = null, onChange }) {
+
+
+
+export function DropDownSearchesSeo({ value = null, onChange , onData   }) {
   const [selectedTag, setSelectedTag] = useState(null);
   const [tags, setTags] = useState([]);
   const [query, setQuery] = useState("");
@@ -14,7 +17,7 @@ export function DropDownSearchesSeo({ value = null, onChange }) {
       
       const resToken = await fetch("/api/auth/get-token");
       const { token } = await resToken.json();
-
+      debugger;
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_NODEJS_URL}/v1/api/seo/get-seo-pages`,
         {
@@ -22,6 +25,13 @@ export function DropDownSearchesSeo({ value = null, onChange }) {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
+
+
+      if(res.status == 403){
+        
+         onData(true); 
+        
+      }
 
       if (res.ok) {
         const result = await res.json();
