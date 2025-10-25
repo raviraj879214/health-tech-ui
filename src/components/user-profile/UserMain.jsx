@@ -83,6 +83,7 @@ export function UserMainArea(){
 
                     <UserMetaCard user={userdetails} />
                     <UserInfoCard user={userdetails} sendUpdatedata={childFormUpdate} />
+                    
                     <UserAddressCard user={userdetails} sendUpdatedata={childFormUpdate} />
                     <AdminPassword></AdminPassword>
 

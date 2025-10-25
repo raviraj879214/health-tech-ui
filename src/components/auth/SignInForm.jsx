@@ -60,6 +60,8 @@ export default function SignInForm({ returl }) {
 
       if(res.ok){
         const result = await res.json();
+
+        
         if(res.status == 201){
            await fetch("/api/auth/set-token", {method: "POST",headers: { "Content-Type": "application/json" },body: JSON.stringify({ token: result.access_token ,  }),});
            await fetch("/api/auth/set-email", {method: "POST",headers: { "Content-Type": "application/json" },body: JSON.stringify({ email : result.user.email ,  }),});
@@ -68,6 +70,9 @@ export default function SignInForm({ returl }) {
            await fetch("/api/auth/set-admin-role", {method: "POST",headers: { "Content-Type": "application/json" },body: JSON.stringify({ adminrole: result.user.role.name })});
            await fetch("/api/auth/set-userid", {method: "POST",headers: { "Content-Type": "application/json" },body: JSON.stringify({ userid: result.user.id })});
            
+
+
+
 
 
            await getToken();

@@ -1,6 +1,8 @@
 'use client';
 
 export default function SubscribeButton() {
+
+    
   const handleSubscribe = async () => {
     const res = await fetch('/api/create-subscription', {
       method: 'POST',

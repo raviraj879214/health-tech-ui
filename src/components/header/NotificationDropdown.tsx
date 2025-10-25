@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Dropdown } from "../ui/dropdown/Dropdown";
 import { DropdownItem } from "../ui/dropdown/DropdownItem";
 import { useNotifications } from "@/hooks/useNotifications";
@@ -10,16 +10,18 @@ import "react-toastify/dist/ReactToastify.css";
 export default function NotificationDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const { notifications, lastNotification } = useNotifications();
+  const displayedNotifications = useRef<Set<string>>(new Set()); // Track displayed
 
-  // Only show toast when a new notification arrives
+  // Show each notification as a separate toast
   useEffect(() => {
-  if (lastNotification) {
-    toast(lastNotification, {
-      position: "bottom-right",
-      autoClose: 10000,
-    });
-  }
-}, [lastNotification]);
+    if (lastNotification && !displayedNotifications.current.has(lastNotification)) {
+      toast(lastNotification, {
+        position: "bottom-right",
+        autoClose: 10000,
+      });
+      displayedNotifications.current.add(lastNotification);
+    }
+  }, [lastNotification]);
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
   const closeDropdown = () => setIsOpen(false);
@@ -95,7 +97,6 @@ export default function NotificationDropdown() {
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
-        // closeOnClick
         rtl={false}
         pauseOnFocusLoss
         draggable

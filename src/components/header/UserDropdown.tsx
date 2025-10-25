@@ -40,6 +40,7 @@ export default function UserDropdown() {
     const adminfirstname = await resfirstname.json();
     const adminlastname = await reslastname.json();
 
+   
     setemail(adminemail.email);
     setfirstname(adminfirstname.firstname);
     setlastname(adminlastname.lastname);
